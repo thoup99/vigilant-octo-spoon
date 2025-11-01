@@ -1,0 +1,12 @@
+#header {
+    border : solid;
+    margin-bottom: 25px;
+}
+
+#map {
+    
+    border: solid;
+    height: 50vh;
+    width: 50%;
+    margin: 0 auto;
+}
