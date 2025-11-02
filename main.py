@@ -11,6 +11,15 @@ import requests
 from datetime import datetime, timezone, timedelta
 import ee
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+firms_key = os.getenv("FIRMS_KEY")
+ee_project = os.getenv("EE_PROJECT")
+
+
 """ app = FastAPI()
 app.mount("/index", StaticFiles(directory="static", html=True), name="static")
 
@@ -20,7 +29,7 @@ async def favicon():
 
 # Gooogle Earth Engine platform
 ee.Authenticate()
-# ee.Initialize(project="")
+ee.Initialize(project=ee_project)
 print(ee.String('Hello from the Earth Engine servers!').getInfo())
 
 
@@ -29,35 +38,35 @@ era5 = (ee.ImageCollection('ECMWF/ERA5_LAND/HOURLY')
 )
 
 
-firstImage = era5.first()
-lastImage = era5.sort('system:time_start',False).first()
+first_image = era5.first()
+last_image = era5.sort('system:time_start',False).first()
 
 epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
-earliestDate = ee.Date(firstImage.get('system:time_start'))
-latestDate = ee.Date(lastImage.get('system:time_start'))
+earliest_date = ee.Date(first_image.get('system:time_start'))
+latest_date = ee.Date(last_image.get('system:time_start'))
 
-earliestDate = dict(earliestDate.getInfo())
-earliestDate = epoch + timedelta(milliseconds=earliestDate['value'])
-latestDate = dict(latestDate.getInfo())
-latestDate = epoch + timedelta(milliseconds=latestDate['value'])
+earliest_date = dict(earliest_date.getInfo())
+earliest_date = epoch + timedelta(milliseconds=earliest_date['value'])
+latest_date = dict(latest_date.getInfo())
+latest_date = epoch + timedelta(milliseconds=latest_date['value'])
 
-print(f"Earliest image date: {earliestDate.isoformat()}")
-print(f"Latest image date: {latestDate.isoformat()}")
+print(f"Earliest image date: {earliest_date.isoformat()}")
+print(f"Latest image date: {latest_date.isoformat()}")
 
 # Define a small region of interest
 roi = ee.Geometry.Point([-120.0, 37.0]) 
 
 
 # Sample pixel values
-samples = firstImage.sample(region=roi.buffer(10000), scale=1000, numPixels=10)
+samples = first_image.sample(region=roi.buffer(10000), scale=1000, numPixels=10)
 
-datadict = dict(samples.getInfo())
+data_dict = dict(samples.getInfo())
 
-print(datadict)
-print(datadict['properties']['band_order'])
-print(datadict['features'][0]['properties']['lake_shape_factor'])
-print(len(datadict['features']))
+print(data_dict)
+print(data_dict['properties']['band_order'])
+print(data_dict['features'][0]['properties']['lake_shape_factor'])
+print(len(data_dict['features']))
 
 
 
@@ -72,7 +81,7 @@ task = ee.batch.Export.table.toDrive(
 
  
 # Nasa FIRMS API
-#key = ""
+key = firms_key
 sources = {
     "Landsat": f"https://firms.modaps.eosdis.nasa.gov/usfs/api/area/csv/{key}/LANDSAT_NRT/world/1/2025-10-13",
     "Modis" : f"https://firms.modaps.eosdis.nasa.gov/usfs/api/area/csv/{key}/MODIS_NRT/world/1/2025-10-13"
