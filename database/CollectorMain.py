@@ -1,9 +1,12 @@
 import ee
 import os
+from dotenv import load_dotenv
 from collectors.FIRMS_builder import FIRMS_Builder
+from collectors.CONUS_builder import CONUS_Builder
 
 class Collector():
     def __init__(self):
+        load_dotenv()
         ee.Authenticate()
         print(f"Project Name: {os.getenv('EE_PROJECT')}")
         ee.Initialize(project=os.getenv("EE_PROJECT"))
@@ -11,7 +14,7 @@ class Collector():
 
     def collect_all(self):
         self.collect_FIRMS()
-        self.collect_CRONUS()
+        self.collect_CONUS()
         self.collect_CFSR()
         self.collect_DaymetV4()
         self.collect_CPC_Precipitation
@@ -20,8 +23,9 @@ class Collector():
         fb =  FIRMS_Builder()
         fb.collect_data()
 
-    def collect_CRONUS(self):
-        pass
+    def collect_CONUS(self):
+        cb = CONUS_Builder()
+        cb.collect_data()
 
     def collect_CFSR(self):
         pass
@@ -38,4 +42,4 @@ if (__name__ == "__main__"):
     collector = Collector()
 
     #We can add input to pick which set to collect
-    collector.collect_FIRMS()
+    collector.collect_CONUS()
