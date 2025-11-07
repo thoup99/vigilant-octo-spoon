@@ -5,6 +5,7 @@ from collectors.FIRMS_collector import FIRMSCollector
 from collectors.CONUS_collector import CONUSCollector
 from collectors.CFSR_collector import CFSRCollector
 from collectors.DaymetV4_collector import DaymetV4Collector
+from collectors.CPC_collector import CPCCollector
 
 class Collector():
     def __init__(self):
@@ -25,19 +26,20 @@ class Collector():
         fc.collect_data()
 
     def collect_CONUS(self):
-        cc = CONUSCollector()
-        cc.collect_data()
+        coc = CONUSCollector()
+        coc.collect_data()
 
     def collect_CFSR(self):
-        cc = CFSRCollector()
-        cc.collect_data()
+        cfc = CFSRCollector()
+        cfc.collect_data()
 
     def collect_DaymetV4(self):
-        d4 = DaymetV4Collector()
-        d4.collect_data()
+        d4c = DaymetV4Collector()
+        d4c.collect_data()
 
     def collect_CPC_Precipitation(self):
-        pass
+        cpc = CPCCollector()
+        cpc.collect_data()
 
 
 

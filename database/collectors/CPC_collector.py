@@ -13,9 +13,7 @@ class CPCCollector(TableCollector) :
                 date text,
                 lat text,
                 long text,
-                confidence int,
-                brightness real,
-                frp real,
+                precipitation real,
                 
                 PRIMARY KEY (date, lat, long)
             );
