@@ -1,11 +1,12 @@
 import sqlite3
-import constants
+import Constants
 
 class TableCollector:
     def __init__(self, table_name : str, ee_name : str):
         self.table_name = table_name
         self.ee_name = ee_name
-        self.cursor = self.build_cursor()
+        self.conn, self.cursor = self.build_cursor()
+        
         
         if (not self.does_table_exist()):
             self.create_table()
@@ -14,8 +15,8 @@ class TableCollector:
         self.cursor.close()
 
     def build_cursor(self) -> sqlite3.Cursor:
-        conn = sqlite3.connect(constants.DB_NAME)
-        return conn.cursor()
+        conn = sqlite3.connect(Constants.DB_NAME)
+        return conn, conn.cursor()
     
     def does_table_exist(self) -> bool:
         if (self.cursor != None):

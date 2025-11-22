@@ -1,5 +1,5 @@
 from collectors.table_collector import TableCollector
-import constants
+import Constants
 import ee
 
 class CONUSCollector(TableCollector) :
@@ -19,7 +19,7 @@ class CONUSCollector(TableCollector) :
         """)
 
     def collect_data(self):
-        conus = ee.ImageCollection(self.ee_name).filterDate(constants.START_DATE, constants.END_DATE).select('pdsi')
+        conus = ee.ImageCollection(self.ee_name).filterDate(Constants.START_DATE, Constants.END_DATE).select('pdsi')
         info_list = conus.aggregate_array('system:index').getInfo()
 
         for i, image_id in enumerate(info_list):

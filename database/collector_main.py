@@ -57,6 +57,4 @@ if (__name__ == "__main__"):
     "6) All\n" +
     "Enter Database to Collect: "
     ))
-    
-    
     functions[choice - 1]()

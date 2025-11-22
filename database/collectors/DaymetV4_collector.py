@@ -1,5 +1,5 @@
 from collectors.table_collector import TableCollector
-import constants
+import Constants
 import ee
 
 class DaymetV4Collector(TableCollector) :
@@ -21,4 +21,4 @@ class DaymetV4Collector(TableCollector) :
 
     def collect_data(self):
         raise NotImplementedError("DaymetV4 collection needs implemented")
-        daymetV4 = ee.ImageCollection(self.ee_name).filterDate(constants.START_DATE, constants.END_DATE)
+        daymetV4 = ee.ImageCollection(self.ee_name).filterDate(Constants.START_DATE, Constants.END_DATE)

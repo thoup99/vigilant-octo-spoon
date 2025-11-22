@@ -1,5 +1,5 @@
 from collectors.table_collector import TableCollector
-import constants
+import Constants
 import ee
 
 class CPCCollector(TableCollector) :
@@ -21,4 +21,4 @@ class CPCCollector(TableCollector) :
 
     def collect_data(self):
         raise NotImplementedError("CPC collection needs implemented")
-        cpc = ee.ImageCollection(self.ee_name).filterDate(constants.START_DATE, constants.END_DATE)
+        cpc = ee.ImageCollection(self.ee_name).filterDate(Constants.START_DATE, Constants.END_DATE)

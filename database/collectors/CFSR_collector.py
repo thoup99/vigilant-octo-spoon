@@ -1,5 +1,5 @@
 from collectors.table_collector import TableCollector
-import constants
+import Constants
 import ee
 
 class CFSRCollector(TableCollector) :
@@ -28,4 +28,4 @@ class CFSRCollector(TableCollector) :
 
     def collect_data(self):
         raise NotImplementedError("CFSR collection needs implemented")
-        cfsr = ee.ImageCollection(self.ee_name).filterDate(constants.START_DATE, constants.END_DATE)
+        cfsr = ee.ImageCollection(self.ee_name).filterDate(Constants.START_DATE, Constants.END_DATE)

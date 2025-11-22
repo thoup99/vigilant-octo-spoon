@@ -1,1 +1,7 @@
 .env
+*.db
+*.pyc
+/.vscode
+/__pycache__
+/database/__pycache__
+/database/collectors/__pycache__
